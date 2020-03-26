@@ -66,11 +66,12 @@ class UserController extends Controller
 		], 201);
     }
 
-    public function getAll($limit = 10, $offset = 0){
+    public function index(){
+		try{
         $data["count"] = User::count();
         $user = array();
 
-        foreach (User::take($limit)->skip($offset)->get() as $p) {
+        foreach (User::all() as $p) {
             $item = [
                 "id"          => $p->id,
                 "nama"        => $p->nama,
@@ -83,15 +84,15 @@ class UserController extends Controller
         }
         $data["user"] = $user;
         $data["status"] = 1;
-        return response($data);
+		return response($data);
+		
+	}catch(\Exception $e){
+		return response()->json([
+		  'status' => '0',
+		  'message' => $e->getMessage()
+		]);
+	  }
 	}
-   
-    public function show($id) 
-    {
-        $data = User::where('id',$id)->get();
-        return response ($data);
-    }
-
 
     public function delete($id)
     {
