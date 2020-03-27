@@ -8,6 +8,7 @@ Route::post('login', 'UserController@login');
 
 //user
 Route::get('user', 'UserController@index');
+Route::get('login/check', "UserController@LoginCheck"); //cek token
 // Route::post('user', 'UserController@store');
 // Route::put('user/{id}', 'UserController@ubah');
 // Route::get('user/{id}', 'UserController@show');
